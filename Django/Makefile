@@ -11,6 +11,11 @@ update-gcloud-secret:
 view-gcloud-secret:
 	gcloud secrets versions access "latest" --secret "django-secrets"
 
+deploy:
+	python manage.py collectstatic --noinput
+	gcloud app deploy --quiet
+
+
 #
 # Heroku
 #
