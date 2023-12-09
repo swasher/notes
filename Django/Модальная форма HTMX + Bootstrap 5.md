@@ -48,12 +48,21 @@
 ```python
 def our_view(request):
     htmx = request.htmx
+
+    if request.method == "POST":
+    # выполняется, когда пользователь отправляет заполненную форму
+        form = MovieForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(status=204)
+    else:
+        form = MovieForm()
+
     if htmx and htmx.target == 'dialog' and request.method == 'GET':
-        # можно отрендеть через формы или без них, неважно
+        # выполняется когда показываем форму
         form = Form()
-        return render(request, 'partials/upload_kinorium_form.html', {'form': form,})
-        # или
-        return render(request, 'partials/upload_kinorium_form.html')
+
+    return render(request, 'partials/upload_kinorium_form.html', {'form': form,})
 ```
 
 Тут используется библиотека `django-htmx`, это не важно в настоящем рассказе.
