@@ -17,6 +17,7 @@
 
 - Github Copilot [need Copilot piad account]
 - Rainbow brackets [can not be `purchased`, detecting jetbra]
+- Key Promoter X
 
 ## TRY
 
