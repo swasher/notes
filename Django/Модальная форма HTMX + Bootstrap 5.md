@@ -124,7 +124,7 @@ def our_view(request):
 
   htmx.on("htmx:afterSwap", (e) => {
     // Response targeting #dialog => show the modal
-    if (e.detail.target.id == "dialog") {
+    if (e.detail.target.ihttps://github.com/swasher/notes/actionsd == "dialog") {
       modal.show()
     }
   })
