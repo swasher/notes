@@ -28,3 +28,5 @@
 - Lightrun (выглядит интересно, но я не разобрался. Служит для отладки кода)
 - Key Promoter X
 - Reloadium
+- Refact.ai
+- Ruff
