@@ -12,6 +12,7 @@
 
 - Code with me
 - Space
+- Qodana
 
 ## TRYING AND DECLINED
 
