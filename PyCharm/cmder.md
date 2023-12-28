@@ -5,9 +5,10 @@ General info about integration is here
 
 ### Cmder
 
+```
 cmd.exe /k "%CMDER_ROOT%\vendor\init.bat"
 cmd.exe /k "%CMDER_ROOT%\vendor\bin\cmder_shell.cmd"
-
+```
 
 не знаю, что правильнее, работает и то и то
 
