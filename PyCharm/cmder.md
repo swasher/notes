@@ -11,15 +11,6 @@ cmd.exe /k "%CMDER_ROOT%\vendor\bin\cmder_shell.cmd"
 
 не знаю, что правильнее, работает и то и то
 
-also,
-
-```
-cmd.exe /k ""%CMDER_ROOT%\vendor\init.bat""
-```
-
-The double-double-quotes are intentional, as they counteract the missing double quotes in the environment variable.
-
-
 ### Cmder + powershell
 
 ```
@@ -28,4 +19,6 @@ cmd.exe /c pwsh.exe -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command 
 
 ### Cmder + ConEmu-Maximus5
 
+```
 "cmd.exe" /k set ConEmuDir=""%CMDER_ROOT%"\vendor\conemu-maximus5&&Call %CMDER_ROOT%\vendor\init.bat"
+```
