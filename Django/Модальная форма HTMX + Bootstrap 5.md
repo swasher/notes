@@ -7,8 +7,10 @@
 
 ```html
 <!-- Button trigger modal form-->
-<button hx-get="{% url 'our_view' %}" type="button" class="btn btn-primary pt-1"
-        hx-target="#dialog" hx-swap="innerHTML">
+<button type="button" class="btn btn-primary pt-1"
+        hx-get="{% url 'our_view' %}"
+        hx-target="#dialog"
+        hx-swap="innerHTML">
     Update list of movies
 </button>
 ```
@@ -24,19 +26,38 @@
 ```html
 <!-- Modal form-->
 <div id="modalform" class="modal modal-blur fade" style="display: none" aria-hidden="false" tabindex="-1">
-    <div id="dialog" class="modal-dialog modal-dialog-centered"></div>
+    <div id="dialog" class="modal-dialog modal-dialog-centered">
+       {# в этом месте DOM поместится то, что вернет бекенд - содержимое модала #}
+    </div>
 </div>
 ```
 
 Заглушка может быть в любом месте в коде страницы.
+Id внутреннего `div` должно совпадать с hx-target на кнопке 
 Тут надо обратить внимание на следующие вещь. Верстка модального окна в бутстрапе выглядит так:
 
 ```html
 <div class="modal" tabindex="-1">
   <div class="modal-dialog">
+
+<!-- Начало шаблона -->
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5> 
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+<!-- Конец шаблона -->
+
+  </div>
+</div>
 ```
 
 Два div-а `modal` и `modal-dialog` у нас остаются на главной странице, а встаиваеммый шаблон у нас начинается с `modal-content`
@@ -65,7 +86,7 @@ def our_view(request):
     return render(request, 'partials/upload_kinorium_form.html', {'form': form,})
 ```
 
-Тут используется библиотека `django-htmx`, это не важно в настоящем рассказе.
+Тут используется библиотека `django-htmx`, это не важно в настоящем контексте.
 
 ## Form
 
@@ -120,18 +141,18 @@ def our_view(request):
 
 ```js
 ;(function () {
-  const modal = new bootstrap.Modal(document.getElementById("modalform"))
+  const modal = new bootstrap.Modal(document.getElementById("modalform"))  // ЭТО ID ВНЕШНЕГО DIV ИЗ 'ЗАГЛУШКИ'
 
   htmx.on("htmx:afterSwap", (e) => {
     // Response targeting #dialog => show the modal
-    if (e.detail.target.ihttps://github.com/swasher/notes/actionsd == "dialog") {
+    if (e.detail.target.id == "dialog") {  // ЭТО ID ТАРГЕТА ИЗ hx-target
       modal.show()
     }
   })
 
   htmx.on("htmx:beforeSwap", (e) => {
     // Empty response targeting #dialog => hide the modal
-    if (e.detail.target.id == "dialog" && !e.detail.xhr.response) {
+    if (e.detail.target.id == "dialog" && !e.detail.xhr.response) {   // ЭТО ID ТАРГЕТА ИЗ hx-target
       modal.hide()
       e.detail.shouldSwap = false
     }
