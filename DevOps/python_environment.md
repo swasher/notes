@@ -1,3 +1,7 @@
+python
+-----------
+ TODO - install python with [pyenv](https://github.com/pyenv-win/pyenv-win) OR py.exe launcher tool
+
 pipx
 -----------
 
@@ -18,7 +22,15 @@ pipx
 poetry
 -----------
 
+poetry 
 
 
-python
------------
+
+ make
+ -----------
+
+Install it with `choco`:
+
+```
+choco install make
+```
