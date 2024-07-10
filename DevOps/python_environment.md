@@ -22,7 +22,7 @@ pipx
 poetry
 -----------
 
-poetry 
+    pipx install poetry 
 
 
 
