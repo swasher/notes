@@ -23,7 +23,7 @@ poetry
 -----------
 
     pipx install poetry 
-
+    pipx upgrade poetry
 
 
  make
