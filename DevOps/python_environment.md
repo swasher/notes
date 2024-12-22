@@ -37,11 +37,11 @@ python
     winget install -e --id Python.Python.3.11 --scope machine
 
 где
-- -e - exact, искать пакет в точности включая регистр
-- -id - ID пакета
-- --scope machine - устанавливать в Program Files (без ключа в юзера, в `C:\Users\<YourUser>\AppData\Local\Programs\Python\Python311`)
+- `-e` - exact, искать пакет в точности включая регистр
+- `-id` - ID пакета
+- `--scope machine` - устанавливать в Program Files (без ключа в юзера, в `C:\Users\<YourUser>\AppData\Local\Programs\Python\Python311`)
 
-PATH включается автоматически, нужно только перезапустить терминал.
+`PATH` включается автоматически, нужно только перезапустить терминал.
 
 ### pyenv-win
 
