@@ -47,31 +47,56 @@ uv вместо pipx
 
 Когда вы хотите обновить версию Python, вы просто редактируете `.python-version`, и все: когда вы запускаете любую команду, `uv run` новая версия Python автоматически загружается и используется.
 
-Установить несколько версий:
+uv может использовать имеющиеся в системе инстелляции python (system) или свои собственные (managed).
 
-    uv python install 3.10 3.11 3.12
-
-TODO: Куда они устанавливаются?
-
-Установить версию питон для проекта (просто создается .python-version в проекте)
+Создает .python-version в проекте, тем самым определив версию питон для конкретного проекта
 
     uv python pin 3.11
+
+Специально устанавливать питон для проекта не нужно, он установится автоматом, если будет необходимость.
+
 
 Управление глобальным python
 ----------------------------------
 
-Тут требуются уточнения, но вроде как достаточно выполнить
+Установить несколько версий:
+
+    $ uv python install 3.10 3.11 3.12
+
+Мы может увидеть, какая версия установлена и какие есть доступные версии для загрузки:
+
+    $ uv python list
+    cpython-3.13.1+freethreaded-windows-x86_64-none    <download available>
+    cpython-3.13.1-windows-x86_64-none                 <download available>
+    cpython-3.12.8-windows-x86_64-none                 AppData\Roaming\uv\python\cpython-3.12.8-windows-x86_64-none\python.exe
+    cpython-3.11.11-windows-x86_64-none                <download available>
+    cpython-3.10.16-windows-x86_64-none                <download available>
+    cpython-3.9.21-windows-x86_64-none                 <download available>
+    cpython-3.8.20-windows-x86_64-none                 <download available>
+    cpython-3.7.9-windows-x86_64-none                  <download available>
+    pypy-3.10.14-windows-x86_64-none                   <download available>
+    pypy-3.9.19-windows-x86_64-none                    <download available>
+    pypy-3.8.16-windows-x86_64-none                    <download available>
+    pypy-3.7.13-windows-x86_64-none                    <download available>
+
+Чтобы увидеть, куда питон установился через uv, а так же все остальные доступные установленные экземпляры питон:
+
+    $ uv python find
+    C:\Users\swasher\AppData\Roaming\uv\python\cpython-3.12.8-windows-x86_64-none\python.exe
+
+После установки питон не будет доступен в командной строке, так его нет в PATH. Чтобы добавить конкретную версию python в PATH, нужно выполнить следующую команду, после которой питон можно запустить как `python3.12` (потому что в `~/.local/.bin` появится `python3.12.exe` (не линком!)
+
+    $ uv python install 3.12 --preview
+
+А чтобы питон запускался как просто `python`, нужно какую-то версию назначить по-умолчанию (тогда в `~/.local/.bin` появятся `python.exe` и  `python3.exe`)
 
     $ uv python install 3.12 --default --preview
 
-и питон будет установлен в `%HOME%\.local\.bin`
-
-Если этой папке нет в PATH, то ее можно установить командой (требует проверки!)
+Если `~/.local/.bin` нет в PATH, то ее можно добавить командой
 
     $ uv tool update-shell
 
-Как я понял, флаг --preview может установить несколько версий python в глобальную среду. Каждый из них будет доступен как `python3.11`, `python3.12` и так далее.
-А флаг --default устанавливает один из них как просто `python`. Таким образом, можно иметь разные версии в системе, и одну из них как дефолтную.
+
 
 Группы
 ------------------
