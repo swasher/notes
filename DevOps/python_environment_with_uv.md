@@ -26,16 +26,19 @@ QuickStart
 uv вместо pipx
 -------------------
 
+    $ uv tool install rust-just
+    $ just
+    
     $ uv tool install cowsay
     $ cowsay mooo
-
-`$PATH` устанавливается автоматически
 
 Так же есть возможность запускать исполнение вообще без установки пакетов:
 
     $ uvx cowsay mooo
     $ uvx ruff check   # Lint all files in the current directory.
     $ uvx ruff format  # Format all files in the current directory.
+
+Утилиты устанавливаеются в `%HOME%\.local\.bin`
 
 Управление версиями Python для проектов
 -----------------
