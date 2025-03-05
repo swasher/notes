@@ -71,7 +71,7 @@ document.body.addEventListener('click', function(event) {
 Html
 -----------------------
 
-Указываем class=copy-btn для привязки события и data-text=some_text собственно текста, который должен попасть в буфер.
+Указываем `class=copy-btn` для привязки события и `data-text=some_text` собственно текста, который должен попасть в буфер.
 
 ```html
 <h5>
