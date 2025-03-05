@@ -66,7 +66,6 @@ document.body.addEventListener('click', function(event) {
             });
     }
 });
-</script>
 ```
 
 Html
