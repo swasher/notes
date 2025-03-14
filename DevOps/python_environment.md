@@ -1,3 +1,5 @@
+# DEPRECATED WORKFLOW
+
 <details><summary>Scoop vs choco vs winget</summary>
  
 **winget**
