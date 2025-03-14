@@ -1,8 +1,6 @@
-# Pyenv and poetry together
+# DEPRECATED WORKFLOW
 
-Owner: Alexey Swasher
-Tags: IT, django, pipenv, poetry, python
----
+# Pyenv and poetry together
 
 Утилита pyenv позволяет нам использовать различные версии python одновременно в системе, назначая каждому проекту свой интерпретатор. В заметке информация о том, как использовать `pyenv` в связке с `poetry`.
 
