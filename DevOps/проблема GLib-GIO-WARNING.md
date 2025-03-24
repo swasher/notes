@@ -42,3 +42,19 @@ python manage.py makemigrations
 ```
 
 Если предупреждение для ScreenSketch исчезло — отлично, проблема решена.
+
+
+#### Шаг 3: Если перерегистрация не помогла
+
+Если предупреждение осталось, можно попробовать полностью переустановить ScreenSketch:
+
+Удалите приложение:
+
+```powershell
+Get-AppxPackage "Microsoft.ScreenSketch" -AllUsers | Remove-AppxPackage
+```
+
+Установите заново через Microsoft Store:
+
+- Откройте Microsoft Store, найдите "Snipping Tool" (это современное название ScreenSketch) и установите.
+- Проверьте снова с python manage.py makemigrations.
