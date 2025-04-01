@@ -61,4 +61,9 @@ Get-AppxPackage "Microsoft.ScreenSketch" -AllUsers | Remove-AppxPackage
 - Откройте Microsoft Store, найдите "Snipping Tool" (это современное название ScreenSketch) и установите.
 - Проверьте снова с python manage.py makemigrations.
 
-> **ЭТОТ СПОСОБ ПОМОГ - ОШИБКА ИСЧЕЗЛА И ПОСЛЕ ПЕРЕЗАГРУЗКИ НЕ ПОЯВИЛАСЬ!!!**
+> **ЭТОТ СПОСОБ ПОМОГ - ОШИБКА ИСЧЕЗЛА И ПОСЛЕ ПЕРЕЗАГРУЗКИ НЕ ПОЯВИЛАСЬ!!!**  
+** UPDATE ** - все равно появляется ошибка...
+
+PS Установка ScreenSketch 
+
+    Get-AppxPackage -AllUsers Microsoft.ScreenSketch | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
