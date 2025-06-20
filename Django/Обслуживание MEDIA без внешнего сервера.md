@@ -87,7 +87,7 @@ application = ProtocolTypeRouter({
 })
 ```
 
-В этом примере, как по мне, более логичным, Whitenoise внедряется через middleware, то есть он уже есть в сервере, 
+В этих примерах Whitenoise внедряется через middleware, то есть он уже есть в сервере, 
 получаемом в `get_asgi_application()`.
 
 В принципе, можно вообще отказаться от Whitenoise, и обслуживать и статику, и медиа через Starlette. Но как я понял, Whitenoise
