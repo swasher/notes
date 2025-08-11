@@ -3,7 +3,7 @@
 
 [`git for windows`](https://gitforwindows.org/)
 
-В pycharm
+Терминал в Pycharm
 --------------------------
 
 `"C:\Program Files\Git\bin\bash.exe" --login -i`
