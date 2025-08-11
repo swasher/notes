@@ -96,3 +96,43 @@ export PS1='\[\e[32m\]\u@\h:\[\e[33m\]\w\[\e[0m\]\$ '
 |-----------|---------------------|
 | Зелёный   | `user@host`         |
 | Жёлтый    | `:/path/to/folder$` |
+
+Starship (для красивого и быстрого prompt’а)
+-----------------------
+
+Весь функционал — это модули, которые динамически показываются в промпте только когда они нужны (например, версия Python — только если ты в проекте с pyproject.toml или .py файлами). Таких модулей очень много для разных утилит - есть для git, Azure, python, ruby, vagrant - и десятков других утилит и языков программировния. Есть, к примеру, модуль Local IP, который отображает ip в промпте.
+
+Я устанавливаю через `scoop install starship`.
+
+После установки нужно создать файл `~/.config/starship.tomp` и поместить в него простой конфиг (пример с офф. сайта, я добавил секцию git):
+
+```toml
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character] # The name of the module we are configuring is 'character'
+success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[git_branch]
+symbol = "🌿 "
+[git_status]
+staged = "[+](green)"
+untracked = "[?](red)"
+modified = "[*](yellow)"
+```
+
+Затем нужно сделать 
+
+```bash
+echo 'eval "$(starship init bash)"' >> ~/.bashrc
+```
+
+и перезапустить терминал.
