@@ -11,11 +11,11 @@ uv
 ----------------
 
     # On Windows.
-    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+    # powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
 Обновление
 
-    uv self update
+    $ uv self update
 
 
 QuickStart
@@ -54,10 +54,15 @@ uv может использовать имеющиеся в системе ин
 
 Создает .python-version в проекте, тем самым определив версию питон для конкретного проекта
 
-    uv python pin 3.11
+    $ uv python pin 3.11
 
 Специально устанавливать питон для проекта не нужно, он установится автоматом, если будет необходимость.
 
+После этого нужно сделать 
+
+    $ uv sync
+
+и `uv` сам поймет, что нужно удалить .venv со старым питоном и пересоздать ее с новым.
 
 Управление глобальным python
 ----------------------------------
