@@ -64,13 +64,7 @@ def test_modal2(request):
     <button
             class="btn btn-primary"
             hx-get="{% url 'orders:test_modal1' %}"
-            hx-target="#modal-content"
-            hx-trigger="click"
-            hx-swap="innerHTML"
-            hx-on:htmx:before-request="
-                document.getElementById('modal-backdrop').style.display='block';
-                document.getElementById('modal-backdrop').classList.add('show')
-            "
+            hx-target="#modal-content"            
     >
         Открыть форму1
     </button>
@@ -80,11 +74,6 @@ def test_modal2(request):
             class="btn btn-primary"
             hx-get="{% url 'orders:test_modal2' %}"
             hx-target="#modal-content"
-            hx-trigger="click"
-            hx-swap="innerHTML"
-            hx-on:htmx:before-request="
-                document.getElementById('modal-backdrop').style.display='block';
-                document.getElementById('modal-backdrop').classList.add('show')"
     >
         Открыть форму2
     </button>
@@ -166,7 +155,7 @@ def test_modal2(request):
 </div>
 ```
 
-И третье - это хук, который правильно закрывает окно.
+И третье - это хук, который правильно открывает/закрывает окно и замораживает/размораживает бекдроп (фон).
 
 ```js
 <script>
@@ -184,6 +173,18 @@ def test_modal2(request):
     }
 
     document.body.addEventListener("modalClose", closeModal);
+
+    <!-- "заморозка" фона при открытии окна -->
+    document.body.addEventListener('htmx:beforeSend', function(evt) {
+        // Если целью является модальное окно, показываем фон
+        if (evt.detail.target.id === 'modal-content') {
+            document.getElementById('modal-backdrop').style.display = 'block';
+            document.getElementById('modal-backdrop').classList.add('show');
+            // Показываем саму оболочку модалки (можно со спиннером)
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('modal').classList.add('show');
+        }
+    });
 </script>
 ```
 
@@ -197,4 +198,11 @@ html.modal-open,
 body.modal-open {
     overflow: hidden;
 }
+
+/* Резервирует место под скроллбар всегда. Это нужно для того, чтобы при рендере модальных окон
+ контент не "дергался" когда скрывается скролл-бар */
+html {
+    scrollbar-gutter: stable;
+}
+
 ```
