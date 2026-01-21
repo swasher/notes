@@ -144,6 +144,8 @@ def test_modal2(request):
         tabindex="-1"
         style="display: none;"
         hx-on:htmx:after-swap="this.classList.add('show'); this.style.display='block'"
+        hx-on:htmx:after-settle="document.body.classList.add('modal-open')"
+
 >
     <div class="modal-dialog">
         <div class="modal-content" id="modal-content">
@@ -183,4 +185,16 @@ def test_modal2(request):
 
     document.body.addEventListener("modalClose", closeModal);
 </script>
+```
+
+### CSS
+
+Этот маленький фрагмент нужен для того, чтобы строка `hx-on:htmx:after-settle="document.body.classList.add('modal-open')"` запрещала прокрутку бекграунда, когда открыта модалка. Нужно поместить куда-нибудь в корневой ccs файл.
+
+```css
+/* Это нужно, чтобы страница не прокручивалась при открытом модальном окне */
+html.modal-open,
+body.modal-open {
+    overflow: hidden;
+}
 ```
