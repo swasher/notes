@@ -118,10 +118,8 @@ def test_modal2(request):
 После основного блока
 
 ```html
-<div class="container-fluid " style="width: initial">
-    {% block body %}
-    {% endblock %}
-</div>
+{% block body %}
+{% endblock %}
 ```
 
 Мы вставляем следующие фрагменты. Первое - это собственно контейнер для отображения модалок:
