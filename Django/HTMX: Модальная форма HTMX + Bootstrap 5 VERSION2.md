@@ -33,6 +33,12 @@ def test_modal1(request):
                 status=204,
                 headers={"HX-Trigger": "modalClose"}
             )
+            # А ЕСЛИ НУЖНО ТРИГГЕРИТЬ ДРУГИЕ СОБЫТИЯ, ТО ТАК ПЕРЕДАЕМ modalClose:
+            messages.success(request, 'Update success!')
+            response = HttpResponse(status=204)
+            trigger_client_event(response, "modalClose", {})
+            trigger_client_event(response, "detailsTableRefresh", {}, )
+            return response
     else:
         form = NameForm()
 
@@ -48,6 +54,12 @@ def test_modal2(request):
                 status=204,
                 headers={"HX-Trigger": "modalClose"}
             )
+            # А ЕСЛИ НУЖНО ТРИГГЕРИТЬ ДРУГИЕ СОБЫТИЯ, ТО ТАК ПЕРЕДАЕМ modalClose:
+            messages.success(request, 'Update success!')
+            response = HttpResponse(status=204)
+            trigger_client_event(response, "modalClose", {})
+            trigger_client_event(response, "detailsTableRefresh", {}, )
+            return response
     else:
         form = SurnameForm()
 
@@ -64,7 +76,8 @@ def test_modal2(request):
     <button
             class="btn btn-primary"
             hx-get="{% url 'orders:test_modal1' %}"
-            hx-target="#modal-content"            
+            hx-target="#modal-content"
+            hx-on:click="openModalStub()"
     >
         Открыть форму1
     </button>
@@ -74,6 +87,7 @@ def test_modal2(request):
             class="btn btn-primary"
             hx-get="{% url 'orders:test_modal2' %}"
             hx-target="#modal-content"
+            hx-on:click="openModalStub()"
     >
         Открыть форму2
     </button>
