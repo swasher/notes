@@ -139,16 +139,8 @@ def test_modal2(request):
 Мы вставляем следующие фрагменты. Первое - это собственно контейнер для отображения модалок:
 ```html
 <!-- modal container (в base.html) -->
-<div
-        id="modal"
-        class="modal fade"
-        tabindex="-1"
-        style="display: none;"
-        hx-on:htmx:after-swap="this.classList.add('show'); this.style.display='block'"
-        hx-on:htmx:after-settle="document.body.classList.add('modal-open')"
-
->
-    <div class="modal-dialog">
+<div id="modal" class="modal fade" tabindex="-1" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content" id="modal-content">
             <!-- htmx будет подставлять сюда HTML -->
         </div>
@@ -171,32 +163,43 @@ def test_modal2(request):
 
 ```js
 <script>
+    function openModalStub() {
+        const modal = document.getElementById('modal');
+        const backdrop = document.getElementById('modal-backdrop');
+
+        // 1. Компенсируем прыжок скролла (как обсуждали ранее)
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.paddingRight = scrollbarWidth + 'px';
+        document.body.classList.add('modal-open');
+
+        // 2. Показываем фон
+        backdrop.style.display = 'block';
+        // Используем setTimeout, чтобы анимация fade сработала плавно
+        setTimeout(() => backdrop.classList.add('show'), 10);
+
+        // 3. Показываем контейнер модалки (пока пустой)
+        modal.style.display = 'block';
+        setTimeout(() => modal.classList.add('show'), 10);
+    }
+
     function closeModal() {
         const modal = document.getElementById('modal');
         const backdrop = document.getElementById('modal-backdrop');
 
         modal.classList.remove('show');
-        modal.style.display = 'none';
-
         backdrop.classList.remove('show');
-        backdrop.style.display = 'none';
 
-        document.body.classList.remove('modal-open');
+        setTimeout(() => {
+            modal.style.display = 'none';
+            backdrop.style.display = 'none';
+            document.body.classList.remove('modal-open');
+            document.body.style.paddingRight = '0px'; // Возвращаем скролл
+            document.getElementById('modal-content').innerHTML = ''; // Очищаем контент
+        }, 150); // Время должно совпадать с CSS transition
     }
 
+    // Слушатель для закрытия из Django (status 204)
     document.body.addEventListener("modalClose", closeModal);
-
-    <!-- "заморозка" фона при открытии окна -->
-    document.body.addEventListener('htmx:beforeSend', function(evt) {
-        // Если целью является модальное окно, показываем фон
-        if (evt.detail.target.id === 'modal-content') {
-            document.getElementById('modal-backdrop').style.display = 'block';
-            document.getElementById('modal-backdrop').classList.add('show');
-            // Показываем саму оболочку модалки (можно со спиннером)
-            document.getElementById('modal').style.display = 'block';
-            document.getElementById('modal').classList.add('show');
-        }
-    });
 </script>
 ```
 
