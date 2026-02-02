@@ -67,3 +67,38 @@ Get-AppxPackage "Microsoft.ScreenSketch" -AllUsers | Remove-AppxPackage
 PS Установка ScreenSketch 
 
     Get-AppxPackage -AllUsers Microsoft.ScreenSketch | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+
+# ВСЕ ЭТО НЕ ПОМОГАЕТ!
+
+### Единственный реальный способ!
+
+- Определить, что за библиотека вызывает это поведение. В моем случае это оказался weasyprint. Обычно это библиотеки с внешними бинарными зависимостями.
+- Перенести импорт библиотек с верхнего уровня во внутрь функций:
+
+Было:
+
+```python
+from weasyprint import HTML, CSS
+
+def order_print(request, orderid=None):
+    pdf_file = HTML(string=html_template)\
+    .write_pdf(stylesheets=[
+        CSS(string='@page { size: A4; margin: 1cm }'),
+        'static/css/order_report.css',
+])
+```
+
+Стало:
+
+```python
+def order_print(request, orderid=None):
+    from weasyprint import HTML, CSS
+
+    pdf_file = HTML(string=html_template)\
+    .write_pdf(stylesheets=[
+        CSS(string='@page { size: A4; margin: 1cm }'),
+        'static/css/order_report.css',
+])
+```
+
+Теперь этот импорт не производится при таких действиях, как запуск проекта, выполнение миграций и тому подобное.
