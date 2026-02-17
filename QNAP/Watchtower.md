@@ -8,6 +8,7 @@
       nickfedor/watchtower \
       --http-api-update \
       --http-api-port=9090 \
+      --cleanup \
       --http-api-token=<MY-SECRET-TOKEN>
 
 Затем, чтобы запустить обновление, можно написать 
