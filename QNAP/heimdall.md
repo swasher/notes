@@ -1,0 +1,1 @@
+# docker run -d --name=heimdall   -e PUID=1000   -e PGID=100   -e TZ=Europe/Riga   -e ALLOW_INTERNAL_REQUESTS=true   -p 84:80   -p 444:443 --memory=256m --memory-swap=384m  -v /share/CACHEDEV1_DATA/PERMANENT/heimdall/config:/config   --restart unless-stopped   lscr.io/linuxserver/heimdall:latest
