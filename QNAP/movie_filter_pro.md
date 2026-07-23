@@ -13,9 +13,9 @@
 Команда для запуска второй версии:
 ```
 docker run -d \
-  --name movie-filter-pro-v2:amd64 \
+  --name movie-filter-pro-v2 \
   -p 8009:8008 \
   -v /PERMANENT/movie-filter-pro-v2:/app/data \
   -v /share/CACHEDEV1_DATA/TorrentsHotFolder:/torrents_hotfolder \
-  swasher/movie-filter-pro-v2
+  swasher/movie-filter-pro-v2:amd64
 ```
